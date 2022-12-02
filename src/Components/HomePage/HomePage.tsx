@@ -36,7 +36,7 @@ const HomePage = () => {
 
     const readFunc = (id: string) => {
         navigate(id);
-    }
+    };
 
     let inner;
 

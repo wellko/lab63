@@ -7,7 +7,7 @@ interface Props {
     onEditClick: React.MouseEventHandler;
 }
 
-const PosterEditor : React.FC<Props>= ({post, onRemoveClick,onEditClick}) => {
+const PosterEditor: React.FC<Props> = ({post, onRemoveClick, onEditClick}) => {
     return (
         <div className='border-primary border border-4 rounded mb-5'>
             <h1 className='text-wrap text-break fst-italic'> {post.title}</h1>

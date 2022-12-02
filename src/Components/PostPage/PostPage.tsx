@@ -6,59 +6,59 @@ import axiosApi from "../../axios-api";
 import PosterEditor from "../PosterEditor/PosterEditor";
 
 const PostPage = () => {
-	const {id} = useParams();
+    const {id} = useParams();
 
-	const [spinner, setSpinner] = useState(true);
+    const [spinner, setSpinner] = useState(true);
 
-	const navigate = useNavigate();
+    const navigate = useNavigate();
 
-	const [post, setPost] = useState<Post>({
-		message: '',
-		date: '',
-		title: ''
-	});
+    const [post, setPost] = useState<Post>({
+        message: '',
+        date: '',
+        title: ''
+    });
 
-	const url = '/postsPage/posts/' + id + '.json';
+    const url = '/postsPage/posts/' + id + '.json';
 
-	const getPost = useCallback(async () => {
-		try {
-			const response = await AxiosApi.get<Post>(url);
-			if (response.data !== null) {
-				setPost(response.data);
-			}
-		} finally {
-			setSpinner(false);
-		}
-	}, [url]);
+    const getPost = useCallback(async () => {
+        try {
+            const response = await AxiosApi.get<Post>(url);
+            if (response.data !== null) {
+                setPost(response.data);
+            }
+        } finally {
+            setSpinner(false);
+        }
+    }, [url]);
 
-	useEffect(() => {
-		getPost().catch(console.error)
-	}, [getPost, id])
+    useEffect(() => {
+        getPost().catch(console.error)
+    }, [getPost, id])
 
-	const deleteFunc = async (id: string) => {
-		const url = 'postsPage/posts/' + id + '.json'
-		try {
-			await axiosApi.delete(url);
-		} finally {
-			navigate('/')
-		}
-	}
+    const deleteFunc = async (id: string) => {
+        const url = 'postsPage/posts/' + id + '.json'
+        try {
+            await axiosApi.delete(url);
+        } finally {
+            navigate('/')
+        }
+    }
 
-	const editFunc = () => {
-		navigate('edit')
-	}
+    const editFunc = () => {
+        navigate('edit')
+    }
 
-	return (
-		<div className='container w-50'>
-			{spinner ? (<div className="spinner-border text-primary" role="status">
-			</div>) : (<PosterEditor
-				post={post}
-				onRemoveClick={() => deleteFunc(id!)}
-				onEditClick={() => editFunc()}
-			/>)}
-			<Outlet/>
-		</div>
-	);
+    return (
+        <div className='container w-50'>
+            {spinner ? (<div className="spinner-border text-primary" role="status">
+            </div>) : (<PosterEditor
+                post={post}
+                onRemoveClick={() => deleteFunc(id!)}
+                onEditClick={() => editFunc()}
+            />)}
+            <Outlet/>
+        </div>
+    );
 };
 
 export default PostPage;
