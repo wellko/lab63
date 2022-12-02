@@ -4,6 +4,7 @@ import {Post} from "../../types";
 import {useNavigate, useParams} from "react-router-dom";
 import AxiosApi from "../../axios-api";
 
+
 const PostForm = () => {
 	const {id} = useParams();
 
@@ -25,7 +26,7 @@ const PostForm = () => {
 			}
 		} finally {
 		}
-	}, []);
+	}, [url]);
 
 	useEffect(() => {
 		getPost().catch(console.error)
@@ -87,10 +88,11 @@ const PostForm = () => {
 		<div className='container'>
 			<form onSubmit={postMessage}>
 				<div className='d-flex flex-column text-center border-primary border border-4 rounded mt-5'>
-					<label htmlFor='title' className='fw-bold fs-6'>Title:</label>
+					<h1 className='fw-bolder mb-5'>{id? 'Edit Field' : 'Post Field'}</h1>
+					<label htmlFor='title' className='fw-bold fs-4'>Title:</label>
 					<input className='w-75 align-self-center' id='title' type='text' value={post.title}
 						   onChange={titleChange}/>
-					<label htmlFor='desc' className='fw-bold fs-6'>Message</label>
+					<label htmlFor='desc' className='fw-bold fs-4'>Message</label>
 					<textarea className='w-75 align-self-center' id='desc' rows={9} cols={90} value={post.message}
 							  onChange={messageChange}/>
 					<button className='btn btn-primary mt-5' type='submit'>{spinner ? (

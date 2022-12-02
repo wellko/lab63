@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Outlet, useNavigate, useParams} from "react-router-dom";
 import AxiosApi from "../../axios-api";
 import {Post} from "../../types";
-import Poster from "../Poster/Poster";
 import axiosApi from "../../axios-api";
+import PosterEditor from "../PosterEditor/PosterEditor";
 
 const PostPage = () => {
 	const {id} = useParams();
@@ -29,11 +29,11 @@ const PostPage = () => {
 		} finally {
 			setSpinner(false);
 		}
-	}, []);
+	}, [url]);
 
 	useEffect(() => {
 		getPost().catch(console.error)
-	}, [getPost])
+	}, [getPost, id])
 
 	const deleteFunc = async (id: string) => {
 		const url = 'postsPage/posts/' + id + '.json'
@@ -44,22 +44,17 @@ const PostPage = () => {
 		}
 	}
 
-	const readFunc = (id: string) => {
-		navigate(id);
-	}
-
 	const editFunc = () => {
 		navigate('edit')
 	}
 
 	return (
-		<div className='container'>
+		<div className='container w-50'>
 			{spinner ? (<div className="spinner-border text-primary" role="status">
-			</div>) : (<Poster
+			</div>) : (<PosterEditor
 				post={post}
 				onRemoveClick={() => deleteFunc(id!)}
 				onEditClick={() => editFunc()}
-				onReadClick={() => readFunc(id!)}
 			/>)}
 			<Outlet/>
 		</div>
