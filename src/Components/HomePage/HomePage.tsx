@@ -7,7 +7,7 @@ import {Outlet, useLocation, useNavigate} from "react-router-dom";
 const HomePage = () => {
     const navigate = useNavigate();
 
-    const lock = useLocation();
+    const location = useLocation();
 
     const [blogs, setBlogs] = useState<Post[]>([]);
 
@@ -32,7 +32,7 @@ const HomePage = () => {
 
     useEffect(() => {
         getPosts().catch(console.error);
-    }, [lock, getPosts]);
+    }, [location, getPosts]);
 
     const readFunc = (id: string) => {
         navigate(id);
